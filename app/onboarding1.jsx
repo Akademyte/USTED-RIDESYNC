@@ -5,10 +5,13 @@ const Onboarding1 = () => {
     const Next =()=>{
         router.push('/onboarding2')
     }
+    const Skip =()=>{
+      router.replace('/Register')
+    }
   return (
     <View style={styles.container}>
       <Image source={require('../assets/onboarding1.jpeg')} style={styles.Onboarding1}/>
-      <TouchableOpacity style={styles.BtnSkip}>
+      <TouchableOpacity style={styles.BtnSkip} onPress={Skip}>
          <Text style={styles.TxtSkip} >SkIP</Text>
       </TouchableOpacity>
      <View>

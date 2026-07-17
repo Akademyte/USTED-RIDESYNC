@@ -1,12 +1,19 @@
 import { View, Text, StyleSheet,Image,TouchableOpacity } from 'react-native'
+import {router} from 'expo-router'
 
 const onboarding3 = () => {
+   const Skip =()=>{
+      router.replace('/Register')
+    }
+    const Get =()=>{
+      router.replace('/Register')
+    }
   return (
     <View style={styles.container}>
       <View>
         <Image source={require('../assets/notift.png')} style={styles.Imgboard} />
       </View>
-      <TouchableOpacity style={styles.BtnSkip}>
+      <TouchableOpacity style={styles.BtnSkip} onPress={Skip}>
         <Text style={styles.TxtSkip}>SKIP</Text>
       </TouchableOpacity>
 
@@ -15,7 +22,7 @@ const onboarding3 = () => {
              Ride
         </Text>
 
-        <TouchableOpacity style={styles.BtnNext}>
+        <TouchableOpacity style={styles.BtnNext} onPress={Get}>
         <Text style={styles.TxtNext}>GET STARTED</Text>
       </TouchableOpacity>
     </View>

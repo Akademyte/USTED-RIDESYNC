@@ -5,6 +5,9 @@ const onboarding2 = () => {
   const Next=()=>{
     router.push('/onboarding3')
   }
+   const Skip =()=>{
+      router.replace('/Register')
+    }
   return (
     <View style={styles.container}>
       <View>
@@ -12,7 +15,7 @@ const onboarding2 = () => {
       </View>
 
        
-          <TouchableOpacity style={styles.TxtSkip}>
+          <TouchableOpacity style={styles.TxtSkip} onPress={Skip}>
             <Text style={styles.TxtSbtn}>SKIP</Text>
           </TouchableOpacity>
 
