@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet,Image,TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, StyleSheet,Image,TouchableOpacity, TextInput,Alert } from 'react-native'
 import {router} from 'expo-router'
 import {useState} from 'react'
+import {supabase} from '../Lib/Supabase'
 
 const Register = () => {
   const[fullname,setFullname]=useState('')
@@ -11,6 +12,44 @@ const Register = () => {
   const Login =()=>{
     router.push('/Login')
   }
+
+  const HandleRegister= async()=>{
+    if(fullname ===""){
+      Alert.alert("Error","Fullname is required")
+      return
+    }
+    if (index===""){
+      Alert.alert("Error","indexnumber is required")
+      return
+    }
+     if (Email===""){
+      Alert.alert("Error","Email is required")
+      return
+    }
+     if (Password===""){
+      Alert.alert("Error","Password is required")
+      return
+     }
+      if (Password !== Confirmpass){
+        Alert.alert("Error","password mismatch")
+        return
+      }
+      const {data,error}=await supabase.auth.signUp({
+        email:Email,
+        password:Password,
+      })
+      console.log("data:",data)
+      console.log("error:",error)
+
+      if(error){
+        Alert.alert("Error",error.message)
+        return
+      }
+      Alert.alert("success","Account Created! please check your email to verify.")
+      router.replace('/Login')
+    }
+  
+
   return (
     <View style={styles.container}>
       <Image source={require('../assets/logo.jpg')} style={styles.logo_img}/>
@@ -21,19 +60,19 @@ const Register = () => {
       </View>
 
       <View style={styles.inputfield}>
-        <Text style={styles.inputfieldtxt}>FullName </Text>
-        <TextInput placeholder="your Name" style={styles.inputfieldbtn}/>
+        <Text style={styles.inputfieldtxt} >FullName </Text>
+        <TextInput placeholder="your Name"  value={fullname} onChangeText={setFullname} style={styles.inputfieldbtn}/>
         <Text style={styles.inputfieldtxt}>Index Number </Text>
-        <TextInput placeholder="5230101003" style={styles.inputfieldbtn}/>
+        <TextInput placeholder="5230101003" value={index} onChangeText={SetIindex} style={styles.inputfieldbtn}/>
         <Text style={styles.inputfieldtxt}>Email</Text>
-        <TextInput placeholder="aamustedstudent@gmail.com" style={styles.inputfieldbtn}/>
+        <TextInput placeholder="aamustedstudent@gmail.com" value={Email} onChangeText={setEmail} style={styles.inputfieldbtn}/>
         <Text style={styles.inputfieldtxt}>Password </Text>
-        <TextInput style={styles.inputfieldbtn} />
+        <TextInput style={styles.inputfieldbtn} value={Password} onChangeText={SetIPassword} />
         <Text style={styles.inputfieldtxt}>Confirm Password</Text>
-        <TextInput style={styles.inputfieldbtn} />
+        <TextInput style={styles.inputfieldbtn} value={Confirmpass} onChangeText={setConfrimpass} />
       </View>
       <View style={styles.Btns}>
-        <TouchableOpacity style={styles.BtnRegister}>
+        <TouchableOpacity style={styles.BtnRegister} onPress={HandleRegister}>
           <Text style={styles.RegisterTxt}>REGISTER</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={Login}>
@@ -44,6 +83,7 @@ const Register = () => {
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
   container: {

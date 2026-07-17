@@ -1,13 +1,35 @@
-import { View, Text, StyleSheet,Image,TouchableOpacity,TextInput } from 'react-native'
+import { View, Text, StyleSheet,Image,TouchableOpacity,TextInput,Alert } from 'react-native'
 import {router} from 'expo-router'
 import {useState} from 'react'
+import {supabase} from '../Lib/Supabase'
 
 const Login = () => {
     const Register =()=>{
     router.push('/Register')
   }
-  const [index,SetIindex]=useState('')
+  const [Email,setEmail]=useState('')
   const [Password,SetIPassword]=useState('')
+
+  const HandleLogin= async()=>{
+    if(Email===""){
+      Alert.alert("error","Email is empty")
+      return
+    }
+    if(Password===""){
+      Alert.alert("error","password is empty")
+      return
+    }
+    const{data,error}=await supabase.auth.signInWithPassword({
+      email:Email,
+      password:Password,
+    })
+    if (error){
+      Alert.alert("Error",error.message)
+      return
+    }
+    Alert.alert("Success","Login Successfully")
+    router.replace('/Dashboard')
+  }
   return (
     <View style={styles.container}>
       <Image source={require('../assets/logo.jpg')} style={styles.logo_img}/>
@@ -18,13 +40,13 @@ const Login = () => {
         </View>
 
         <View style={styles.inputfield}>
-                <Text style={styles.inputfieldtxt}>Index Number </Text>
-                <TextInput placeholder="5230101003" style={styles.inputfieldbtn}/>
+                <Text style={styles.inputfieldtxt}>Email </Text>
+                <TextInput  value={Email} onChangeText={setEmail} style={styles.inputfieldbtn}/>
                 <Text style={styles.inputfieldtxt}>Password </Text>
-                <TextInput style={styles.inputfieldbtn} />
+                <TextInput value={Password} onChangeText={SetIPassword} style={styles.inputfieldbtn} />
         </View>
         <View style={styles.Btns}>
-            <TouchableOpacity style={styles.BtnRegister}>
+            <TouchableOpacity style={styles.BtnRegister} onPress={HandleLogin}>
             <Text style={styles.RegisterTxt}>Login</Text>
              </TouchableOpacity>
                 <TouchableOpacity onPress={Register}>

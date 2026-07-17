@@ -3,12 +3,14 @@ import {router} from 'expo-router'
 import {StatusBar} from'expo-status-bar'
 import {useEffect} from 'react'
 
+
 const Main =()=>{
     useEffect(()=>{
         setTimeout(()=>{
             router.replace('/onboarding1')
         },5000)
     },[])
+    
     return(
         <View style={styles.Container}>
            
