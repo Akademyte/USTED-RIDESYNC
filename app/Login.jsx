@@ -28,7 +28,7 @@ const Login = () => {
       return
     }
     Alert.alert("Success","Login Successfully")
-    router.replace('/Dashboard')
+    router.replace('/Student/home')
   }
   return (
     <View style={styles.container}>
