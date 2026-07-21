@@ -48,6 +48,10 @@ const Register = () => {
       Alert.alert("success","Account Created! please check your email to verify.")
       router.replace('/Login')
     }
+
+    const Driver=()=>{
+      router.replace('Driver/login')
+    }
   
 
   return (
@@ -78,7 +82,11 @@ const Register = () => {
         <TouchableOpacity onPress={Login}>
           <Text style={styles.AlreadyTxt}>Already have an Account? Login</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.Driverbtn} onPress={Driver}>
+          <Text style={styles.Drivertxt}>DRIVER</Text>
+        </TouchableOpacity>
       </View>
+
       
     </View>
   )
@@ -119,7 +127,14 @@ const styles = StyleSheet.create({
   AlreadyTxt:{
     fontSize:17,
     color:'#790F0F',
-    marginTop:20,
+    marginTop:5,
+  },
+  Driverbtn:{
+    alignSelf:'center'
+  },
+  Drivertxt:{
+    fontSize:20,
+    fontWeight:'bold'
   }
 
 

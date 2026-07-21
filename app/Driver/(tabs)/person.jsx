@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from 'react-native'
 
-const Dashboard = () => {
+const profile = () => {
   return (
     <View style={styles.container}>
-      <Text>Welcome User</Text>
+      <Text>Content</Text>
     </View>
   )
 }
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Dashboard
+export default profile

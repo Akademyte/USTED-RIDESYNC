@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet,Image,TouchableOpacity,TextInput,Alert } from 'react-native'
 import {router} from 'expo-router'
 import {useState} from 'react'
-import {supabase} from '../Lib/Supabase'
+import {supabase} from '../../Lib/Supabase'
 
 const Login = () => {
     const Register =()=>{
@@ -28,11 +28,17 @@ const Login = () => {
       return
     }
     Alert.alert("Success","Login Successfully")
-    router.replace('/Student/home')
+    router.replace('/home')
+  }
+  const Skip=()=>{
+    router.replace('/Driver/home')
   }
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/logo.jpg')} style={styles.logo_img}/>
+      <TouchableOpacity onPress={Skip}>
+        <Text>Home</Text>
+      </TouchableOpacity>
+      <Image source={require('../../assets/logo.jpg')} style={styles.logo_img}/>
       
         <View style={styles.heading}>
               <Text style={styles.head}>DRIVER</Text>

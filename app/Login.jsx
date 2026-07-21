@@ -30,6 +30,10 @@ const Login = () => {
     Alert.alert("Success","Login Successfully")
     router.replace('/Student/home')
   }
+     const Driver=()=>{
+      router.replace('Driver/home')
+    }
+  
   return (
     <View style={styles.container}>
       <Image source={require('../assets/logo.jpg')} style={styles.logo_img}/>
@@ -51,6 +55,9 @@ const Login = () => {
              </TouchableOpacity>
                 <TouchableOpacity onPress={Register}>
                 <Text style={styles.AlreadyTxt}>Don't Have an Account? Register</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.Driverbtn} onPress={Driver}>
+                  <Text style={styles.Drivertxt}>DRIVER</Text>
                 </TouchableOpacity>
       </View>
 
