@@ -28,16 +28,12 @@ const Login = () => {
       return
     }
     Alert.alert("Success","Login Successfully")
-    router.replace('/home')
-  }
-  const Skip=()=>{
     router.replace('/Driver/home')
   }
+  
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={Skip}>
-        <Text>Home</Text>
-      </TouchableOpacity>
+      
       <Image source={require('../../assets/logo.jpg')} style={styles.logo_img}/>
       
         <View style={styles.heading}>
@@ -55,9 +51,7 @@ const Login = () => {
             <TouchableOpacity style={styles.BtnRegister} onPress={HandleLogin}>
             <Text style={styles.RegisterTxt}>Login</Text>
              </TouchableOpacity>
-                <TouchableOpacity onPress={Register}>
-                <Text style={styles.AlreadyTxt}>Don't Have an Account? Register</Text>
-                </TouchableOpacity>
+                
       </View>
 
     </View>
