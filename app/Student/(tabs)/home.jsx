@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
 import   MapView, {Marker} from 'react-native-maps'
 import {useEffect,useState} from 'react'
-import {supabase} from '../../Lib/Supabase'
+import {supabase} from '../../../Lib/Supabase'
 
 const Home = () => {
     const initialRegion={

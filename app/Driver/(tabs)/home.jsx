@@ -2,6 +2,7 @@ import { View, Text, StyleSheet,TouchableOpacity} from 'react-native'
 import {useEffect,useState} from 'react'
 import {supabase} from '../../../Lib/Supabase'
 import {Picker} from '@react-native-picker/picker'
+import * as Location from 'expo-location'
 
 const Home = () => {
   const[bus,setBus]=useState('')
@@ -25,6 +26,29 @@ const Home = () => {
    }
    fetchbus()
   },[])
+ 
+    const option={
+      accuracy:Location.Accuracy.High,
+      timeInterval:5000,
+      distanceInterval:10,
+    }
+    const Sharebtn=async ()=>{
+      const {status}=await Location.requestForegroundPermissionsAsync()
+      if (status !=='granted')
+        return
+      Location.watchPositionAsync(option,(location)=>{
+        supabase.from('buses').update({
+          latitude:location.coords.latitude,
+          longitude:location.coords.longitude
+        })
+        .eq('id',bus)
+        .then ((res)=>console.log("UPDATED RESULTS:",res))
+        console.log("GPS UPDATE:",location.coords.latitude,location.coords.longitude  )
+      })
+      
+      
+    }
+ 
   return (
     <View style={styles.container}>
       <View style={styles.Set}>
@@ -37,7 +61,7 @@ const Home = () => {
         </Picker>
       </View>
       <View style={styles.track}>
-        <TouchableOpacity style={styles.trackBtn}>
+        <TouchableOpacity style={styles.trackBtn} onPress={Sharebtn}>
           <Text style={styles.trackTxt}>SHARE</Text>
         </TouchableOpacity>
       </View>

@@ -1,10 +1,24 @@
 import { View, Text, StyleSheet,TouchableOpacity } from 'react-native'
 import { Tabs } from 'expo-router'
 import {supabase} from '../../../Lib/Supabase'
-import {Ionicons} from '@expo/vector-icons'
+import {useState,useEffect} from 'react'
 
 
 const qrcode = () => {
+  const [capacity,setCapacity]=useState('')
+  const[buses,setBuses]=useState([])
+  useEffect(()=>{
+    const getcapacity=async()=>{
+      const {data,error}=await supabase
+      .from('buses')
+      .select('*')
+      if (error){
+        console.log(error)
+      }
+      setBuses(data)
+    }
+    getcapacity()
+  },[])
   return (
     <View style={styles.container}>
       <Text style={styles.qrtxt}>QR CODE</Text>
@@ -17,7 +31,11 @@ const qrcode = () => {
 
     <View style={styles.Capacity}>
         <Text style={styles.captxt}>Capacity</Text>
-        <Text style={styles.cabnumtxt}></Text>
+        {buses.map((bus)=>(
+          <View key={bus.id}>
+            <Text style={styles.capcount}>{`${bus.capacity_occupied} / ${bus.capacity}`}</Text>
+             </View>
+        ))}
     </View>
     <TouchableOpacity style={styles.clearbtn}>
         <Text style={styles.cleartxt}>Clear</Text>
@@ -62,6 +80,11 @@ const styles = StyleSheet.create({
     fontSize:20,
     fontWeight:'bold',
     color:'#fff'
+  },
+  capcount:{
+    fontSize:25,
+    fontWeight:'bold',
+    alignSelf:'center'
   }
 
 
