@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet ,TouchableOpacity} from 'react-native'
 import   MapView, {Marker} from 'react-native-maps'
 import {useEffect,useState} from 'react'
 import {supabase} from '../../../Lib/Supabase'
 
+
 const Home = () => {
+  
     const initialRegion={
         latitude:6.697902,
         longitude:-1.681507,
@@ -52,6 +54,7 @@ const Home = () => {
            
       ))}
       </MapView>
+      
     </View>
   )
 }
@@ -64,7 +67,8 @@ const styles = StyleSheet.create({
   map:{
     flex:1,
     width:"100%"
-  }
+  },
+
 })
 
 export default Home

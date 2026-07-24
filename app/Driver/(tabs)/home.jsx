@@ -33,6 +33,7 @@ const Home = () => {
       distanceInterval:10,
     }
     const Sharebtn=async ()=>{
+      const {data:{user}}=await supabase.auth.getUser()
       const {status}=await Location.requestForegroundPermissionsAsync()
       if (status !=='granted')
         return
@@ -41,7 +42,7 @@ const Home = () => {
           latitude:location.coords.latitude,
           longitude:location.coords.longitude
         })
-        .eq('id',bus)
+        .eq('Driver_id',user.id)
         .then ((res)=>console.log("UPDATED RESULTS:",res))
         console.log("GPS UPDATE:",location.coords.latitude,location.coords.longitude  )
       })
@@ -54,9 +55,15 @@ const Home = () => {
       <View style={styles.Set}>
         <Text style={styles.Settxt}>Set Destination:</Text>
         <Picker style={styles.list}
-        selectedValue={(value)=>{setDestination(value)
-          supabase.from('buses').update({destination:value}).eq('id',bus).then()
-        }}>
+        selectedValue={destination}
+        onValueChange={(value)=>{
+          setDestination(value)
+          supabase.from('buses')
+          .update({destination:value})
+          .eq('id',bus)
+          .then((res)=> console.log('destination updated:',res))
+        }}
+        >
           {destinationOptions.map((d)=> <Picker.Item key={d} label={d} value={d} />)}
         </Picker>
       </View>

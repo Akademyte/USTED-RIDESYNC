@@ -11,7 +11,7 @@ const bus = () => {
     const {data,error}= await supabase
     .from('buses')
     .select('*')
-
+    .eq('Driver_id',id)
     if (error){
       console.log('error fetching buses')
       return

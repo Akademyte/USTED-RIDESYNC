@@ -2,6 +2,7 @@ import { View, Text, StyleSheet,TouchableOpacity } from 'react-native'
 import { Tabs } from 'expo-router'
 import {supabase} from '../../../Lib/Supabase'
 import {useState,useEffect} from 'react'
+import QRcode from 'react-native-qrcode-svg'
 
 
 const qrcode = () => {
@@ -19,6 +20,14 @@ const qrcode = () => {
     }
     getcapacity()
   },[])
+
+  const clearcapacity=async()=>{
+    const {data,error}=await supabase
+    .from('buses')
+    .update({capacity:0})
+    .eq('driver_id',busid)
+    
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.qrtxt}>QR CODE</Text>
@@ -26,7 +35,7 @@ const qrcode = () => {
 
     <View style={styles.scan}>
       <Text style={styles.scantxt}>Please Scan</Text>
-      
+      <QRcode  value="bus_1" size={300} a />
     </View>
 
     <View style={styles.Capacity}>
@@ -37,7 +46,7 @@ const qrcode = () => {
              </View>
         ))}
     </View>
-    <TouchableOpacity style={styles.clearbtn}>
+    <TouchableOpacity style={styles.clearbtn} onPress={clearcapacity}>
         <Text style={styles.cleartxt}>Clear</Text>
     </TouchableOpacity>
 
@@ -85,7 +94,8 @@ const styles = StyleSheet.create({
     fontSize:25,
     fontWeight:'bold',
     alignSelf:'center'
-  }
+  },
+  
 
 
   
